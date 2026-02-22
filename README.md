@@ -1,66 +1,105 @@
 # ADAMS for Projects
 
-A small Python CLI that queries the NRC **ADAMS Public Search (APS) API** for documents added **today** (or a specified date),
-filters obvious noise, and surfaces the **Top N** “project-grade” items based on simple, transparent heuristics.
+**A tiny CLI radar for the NRC ADAMS Public Search (APS) API.**  
+It answers one question fast:
 
-This is **not** an NRC project and is provided as-is.
+> **“What’s hot in ADAMS today?”**  
+…and if today has zero postings (weekends/holidays), it automatically falls back to the last posting day.
 
-## Quick start
+This project exists because the new ADAMS web UI makes “daily situational awareness” harder than it needs to be.  
+If there’s an API, we can rebuild the missing affordance.
 
-### 1) Create a virtualenv & install
+---
 
+## Why this exists (the short story)
+
+Meet **Little Nuclear Johnny**: a nuclear engineering student who can’t unsee the PR spellcraft.  
+He wants to know what’s actually happening *today*—not what the UI feels like showing him.  
+So he builds a radar:
+
+- pulls newest postings
+- filters by “date added”
+- clusters duplicates (EPIDs / NEI IDs / projects)
+- ranks likely “project-grade” documents
+- prints clickable URLs
+
+It’s a tool. It’s also a character study.
+
+---
+
+## Features (v1)
+
+- ✅ Pulls ADAMS postings by date (with weekend fallback)
+- ✅ Clusters near-duplicates into **one topic** (EPID / NEI 24-05 style families)
+- ✅ Scores + filters noise (configurable via code in v1)
+- ✅ Severity labels + readable output
+- ✅ Prints a URL for each pick
+- ✅ Caches daily results to `cache/YYYY-MM-DD.json`
+
+---
+
+## Install
+
+### Requirements
+- Python 3.10+ recommended (works on 3.12 too)
+- An NRC APS subscription key (free from NRC’s developer portal)
+
+### Setup
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+source .venv/bin/activate
 pip install -e .
-```
 
-### 2) Set your APS key
+Set your key in an environment variable:
 
-Export your APS subscription key (Azure APIM key):
-
-```bash
 export APS_KEY="YOUR_KEY_HERE"
-```
+Usage
 
-### 3) Run for today
+Note: global flags come before the subcommand.
 
-```bash
-adams --today --top 5
-```
+Probe today (with fallback)
+adams --today probe
+Show top topics
+adams --today --top 5 run
+Query a specific date
+adams --date 2026-02-20 --top 10 run
+Disable color
+adams --today --color never run
+Output
 
-Or for a specific date:
+Each topic prints:
 
-```bash
-adams --date 2026-02-28 --top 10
-```
+score + severity
 
-## Helpful modes
+best accession
 
-### Probe response schema (first time setup)
-APS response field names can vary. This mode prints the top-level keys and a sample document’s keys:
+docket / project hints
 
-```bash
-adams probe --today
-```
+hits (why it scored)
 
-### Save cache
-Results are cached to `cache/YYYY-MM-DD.json` automatically. Re-run uses the cache unless you pass `--no-cache`.
+angle (project framing)
 
-## What v1 does (by design)
+cluster file list
 
-- Queries APS for documents added on a given date (`DateAddedTimestamp`)
-- Paginates with `skip`
-- Filters obvious noise (fitness-for-duty, admin notices, etc.)
-- Scores titles with a weighted keyword list (transparent, editable)
-- Prints Top N with “reason tags”
-- Saves a JSON cache (raw response documents)
+URL (bottom)
 
-## Roadmap (later)
-- Better field mapping once you confirm schema
-- Optional “modes” (enforcement / spent fuel / EP / licensing)
-- Optional PDF download for top picks
-- Optional trend analytics
+Responsible use
 
-## License
-MIT
+This tool is designed to be a polite client:
+
+minimal pages fetched
+
+caches results
+
+built for “situational awareness,” not scraping the entire archive
+
+If you’re using it heavily, consider adding backoff/ratelimit logic (easy v2).
+
+License
+
+MIT (see LICENSE).
+Yes, NRC staff/contractors can use it too. Seriously. See NOTICE.
+
+Disclaimer
+
+This is an independent project and is not affiliated with the U.S. NRC.
