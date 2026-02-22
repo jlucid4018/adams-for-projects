@@ -1,0 +1,15 @@
+LICENSE
+README.md
+pyproject.toml
+src/adams_for_projects/__init__.py
+src/adams_for_projects/aps_client.py
+src/adams_for_projects/cache.py
+src/adams_for_projects/cli.py
+src/adams_for_projects/constants.py
+src/adams_for_projects/scoring.py
+src/adams_for_projects.egg-info/PKG-INFO
+src/adams_for_projects.egg-info/SOURCES.txt
+src/adams_for_projects.egg-info/dependency_links.txt
+src/adams_for_projects.egg-info/entry_points.txt
+src/adams_for_projects.egg-info/requires.txt
+src/adams_for_projects.egg-info/top_level.txt

@@ -1,0 +1,2 @@
+[console_scripts]
+adams = adams_for_projects.cli:main

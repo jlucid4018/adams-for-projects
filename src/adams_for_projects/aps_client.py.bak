@@ -1,0 +1,75 @@
+from __future__ import annotations
+import datetime, socket
+from typing import Any, Dict, List, Optional, Tuple
+import json
+import requests
+
+APS_URL = "https://adams-api.nrc.gov/aps/api/search"
+
+class APSClient:
+    def __init__(self, api_key: str, debug: bool = False):
+        self.api_key = api_key
+        self.debug = debug
+
+    def _dns_check(self, host: str, timeout_s: float = 3.0) -> None:
+        # Fail fast if DNS is hung.
+        old = socket.getdefaulttimeout()
+        socket.setdefaulttimeout(timeout_s)
+        try:
+            socket.getaddrinfo(host, 443)
+        finally:
+            socket.setdefaulttimeout(old)
+
+    def _post(self, body: Dict[str, Any]) -> Dict[str, Any]:
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Ocp-Apim-Subscription-Key": self.api_key,
+            "Cache-Control": "no-cache",
+        }
+        # DNS check
+        self._dns_check("adams-api.nrc.gov")
+
+        r = requests.post(APS_URL, headers=headers, json=body, timeout=(5, 20))
+        if self.debug:
+            print(f"[debug] HTTP {r.status_code}")
+        if r.status_code == 429:
+            raise RuntimeError("429 rate limited")
+        r.raise_for_status()
+        return r.json()
+
+    @staticmethod
+    def _today_range(day: datetime.date) -> Tuple[str, str]:
+        start = day.strftime("%Y-%m-%d")
+        end = (day + datetime.timedelta(days=1)).strftime("%Y-%m-%d")
+        return start, end
+
+    def search_date_added(self, day: datetime.date, page_number: int = 1, page_size: int = 100) -> Dict[str, Any]:
+        # Newer APS tenant appears to accept this schema:
+        # { q, filters:["(DateAddedTimestamp ge 'YYYY-MM-DD')", "(DateAddedTimestamp lt 'YYYY-MM-DD')"], pageNumber, pageSize }
+        start, end = self._today_range(day)
+        body = {
+            "q": "",
+            "filters": [
+                f"(DateAddedTimestamp ge '{start}')",
+                f"(DateAddedTimestamp lt '{end}')",
+            ],
+            "pageNumber": page_number,
+            "pageSize": page_size,
+        }
+        return self._post(body)
+
+    @staticmethod
+    def extract_items(payload: Dict[str, Any]) -> List[Dict[str, Any]]:
+        # results -> list of wrappers -> document
+        items = payload.get("results") or []
+        docs = []
+        for it in items:
+            if isinstance(it, dict) and "document" in it and isinstance(it["document"], dict):
+                docs.append(it["document"])
+        return docs
+
+    @staticmethod
+    def extract_count(payload: Dict[str, Any]) -> Optional[int]:
+        c = payload.get("count")
+        return c if isinstance(c, int) else None

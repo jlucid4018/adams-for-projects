@@ -1,0 +1,33 @@
+POSITIVE_KEYWORDS = {
+    "confirmatory action letter": 12,
+    "demand for information": 12,
+    "enforcement": 10,
+    "allegation": 9,
+    "part 21": 9,
+    "defect": 8,
+    "exemption": 7,
+    "relief request": 7,
+    "risk-informed": 7,
+    "performance-based": 7,
+    "emergency planning": 7,
+    "epz": 7,
+    "spent fuel": 6,
+    "dry cask": 6,
+    "canister": 6,
+    "decommission": 6,
+    "trust": 4,
+    "proprietary": 5,
+    "withheld": 5,
+    "redacted": 5,
+}
+
+NEGATIVE_KEYWORDS = {
+    "fitness for duty": -10,
+    "drug": -10,
+    "alcohol": -10,
+    "random test": -10,
+    "certificate of service": -8,
+    "notice of availability": -6,
+    "administrative": -6,
+    "meeting notice": -5,
+}
