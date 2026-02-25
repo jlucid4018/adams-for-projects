@@ -15,10 +15,10 @@ class APSClientError(RuntimeError):
 
 class APSClient:
     """
-    APS client tuned for the NRC deployment you've got:
+    APS client tuned for your NRC deployment:
       - Response schema: {count, results:[{document:{...}}], facets, pageNumber}
-      - Backend is picky about request body shape and may 500 on "minimal" payloads.
-      - WORKAROUND: pull newest docs (sorted) using the legacy/compatible body, then filter locally by date.
+      - Backend is picky: minimal bodies may 500; "legacy" body shape works.
+      - Strategy: pull newest pages, filter locally by DateAddedTimestamp prefix.
     """
 
     def __init__(self, api_key: str, debug: bool = False, base_url: str = APS_SEARCH_URL):
@@ -43,7 +43,6 @@ class APSClient:
             pass
 
     def _post(self, body: Dict[str, Any]) -> Dict[str, Any]:
-        # Hard timeouts so it never "hangs"
         resp = self.session.post(
             self.base_url,
             headers=self.headers,
@@ -52,10 +51,8 @@ class APSClient:
         )
         if self.debug:
             print(f"[debug] POST {self.base_url} HTTP {resp.status_code}")
-
         if resp.status_code >= 400:
             self._dump_last(body, resp)
-
         resp.raise_for_status()
         return resp.json()
 
@@ -71,7 +68,6 @@ class APSClient:
                     docs.append(it["document"])
             return (count or len(docs), docs, page_num)
 
-        # fallback legacy list keys (just in case)
         for key in ("Documents", "documents", "Results", "results", "items"):
             if isinstance(payload.get(key), list):
                 docs = payload[key]
@@ -85,22 +81,18 @@ class APSClient:
         return (count or 0, [], page_num)
 
     @staticmethod
-    def _date_added_prefix(doc: Dict[str, Any]) -> str:
-        # We only need YYYY-MM-DD prefix for comparisons
-        for k in ("dateAddedTimestamp", "DateAddedTimestamp", "dateAdded", "DateAdded"):
+    def _date_prefix(doc: Dict[str, Any]) -> str:
+        for k in ("DateAddedTimestamp", "dateAddedTimestamp", "DateAdded", "dateAdded"):
             v = doc.get(k)
             if isinstance(v, str) and len(v) >= 10:
                 return v[:10]
         return ""
 
     def search_latest_legacy(self, skip: int = 0) -> Dict[str, Any]:
-        """
-        Use the 'legacy/compatible' body shape that this backend accepts.
-        (Your earlier successful response came back with count/results on this style.)
-        """
+        # “Legacy/compatible” body shape that your backend accepts reliably
         body = {
             "q": "",
-            "filters": [],          # IMPORTANT: backend expects these keys to exist
+            "filters": [],
             "anyFilters": [],
             "mainLibFilter": True,
             "legacyLibFilter": False,
@@ -115,13 +107,21 @@ class APSClient:
         day: dt.date,
         max_pages: int = 10,
         page_size: int = 100,
-    ) -> List[Dict[str, Any]]:
+        stop_when_older: bool = True,
+    ) -> Tuple[List[Dict[str, Any]], Optional[dt.date]]:
         """
-        Pull newest pages and keep docs whose DateAddedTimestamp date == day.
-        Stop early once we fall below the target day.
+        Returns (docs_on_day, oldest_date_seen_in_window).
+
+        stop_when_older=True is optimal for RECENT mode:
+          - stop once results are older than the target day.
+
+        stop_when_older=False is for ARCHIVE mode best-effort scanning:
+          - still only scans newest pages, but does not early-stop based on older-than-day,
+            so it can reach slightly further back if needed.
         """
         target = day.strftime("%Y-%m-%d")
         kept: List[Dict[str, Any]] = []
+        oldest_seen: Optional[dt.date] = None
 
         for page in range(max_pages):
             skip = page * page_size
@@ -134,19 +134,28 @@ class APSClient:
                 break
 
             below_day = False
+
             for d in docs:
-                dday = self._date_added_prefix(d)
-                if dday == target:
+                dp = self._date_prefix(d)
+                if not dp:
+                    continue
+                try:
+                    ddate = dt.datetime.strptime(dp, "%Y-%m-%d").date()
+                except Exception:
+                    continue
+
+                if oldest_seen is None or ddate < oldest_seen:
+                    oldest_seen = ddate
+
+                if dp == target:
                     kept.append(d)
-                elif dday and dday < target:
+                elif dp < target:
                     below_day = True
 
-            # Once we see older-than-target docs, the rest will be older too
-            if below_day:
+            if stop_when_older and below_day:
                 break
 
-            # If fewer than a full page returned, we're done
             if len(docs) < page_size:
                 break
 
-        return kept
+        return kept, oldest_seen

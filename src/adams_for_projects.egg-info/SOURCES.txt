@@ -1,4 +1,5 @@
 LICENSE
+NOTICE.md
 README.md
 pyproject.toml
 src/adams_for_projects/__init__.py
