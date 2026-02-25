@@ -1,0 +1,256 @@
+{
+  "tool": "adams-for-projects",
+  "version": "0.1.0",
+  "mode": "recent",
+  "requested_date": "2026-02-25",
+  "used_date": "2026-02-24",
+  "generated_at": "2026-02-25T07:50:06Z",
+  "source": {
+    "api": "APS",
+    "page_size": 100,
+    "max_pages": 10,
+    "fallback_days": 7
+  },
+  "summary": {
+    "docs_total_for_used_date": 159,
+    "topics_returned": 10
+  },
+  "topics": [
+    {
+      "rank": 1,
+      "score": 12,
+      "severity": "MED",
+      "title": "Analysis of VA Electric's Updated Decommissioning Funding Plan for the North Anna Independent Spent Fuel Storage Installation",
+      "angle": "ANGLE: decommissioning money carve-outs (trust fund rules + exemptions)",
+      "hits": [
+        "spent fuel",
+        "decommissioning"
+      ],
+      "dockets": [
+        "07200016",
+        "07200056",
+        "05000338",
+        "05000339"
+      ],
+      "accessions": [
+        "ML26043A258"
+      ],
+      "best_accession": "ML26043A258",
+      "urls": [
+        "https://www.nrc.gov/docs/ML2604/ML26043A258.pdf"
+      ]
+    },
+    {
+      "rank": 2,
+      "score": 12,
+      "severity": "MED",
+      "title": "Analysis of Nextera Energy Duane Arnold's Updated Decommissioning Funding Plans for the Duane Arnold Energy Center Independent Spent Fuel Storage Installation",
+      "angle": "ANGLE: decommissioning money carve-outs (trust fund rules + exemptions)",
+      "hits": [
+        "spent fuel",
+        "decommissioning"
+      ],
+      "dockets": [
+        "07200032",
+        "05000331"
+      ],
+      "accessions": [
+        "ML26042A347"
+      ],
+      "best_accession": "ML26042A347",
+      "urls": [
+        "https://www.nrc.gov/docs/ML2604/ML26042A347.pdf"
+      ]
+    },
+    {
+      "rank": 3,
+      "score": 12,
+      "severity": "MED",
+      "title": "Analysis of Northern States Power Company's Updated Decommissioning Funding Plans for the Monticello and Prairie Island Independent Spent Fuel Storage Installations",
+      "angle": "ANGLE: decommissioning money carve-outs (trust fund rules + exemptions)",
+      "hits": [
+        "spent fuel",
+        "decommissioning"
+      ],
+      "dockets": [
+        "07200058",
+        "05000263",
+        "07200010",
+        "05000282",
+        "05000306"
+      ],
+      "accessions": [
+        "ML26042A349"
+      ],
+      "best_accession": "ML26042A349",
+      "urls": [
+        "https://www.nrc.gov/docs/ML2604/ML26042A349.pdf"
+      ]
+    },
+    {
+      "rank": 4,
+      "score": 12,
+      "severity": "MED",
+      "title": "Analysis of Southern California Edison's updated Decommissioning Funding Plan for the San Onofre Nuclear Generating Station Independent Spent Fuel Storage Installation",
+      "angle": "ANGLE: decommissioning money carve-outs (trust fund rules + exemptions)",
+      "hits": [
+        "spent fuel",
+        "decommissioning"
+      ],
+      "dockets": [
+        "07200041",
+        "05000206",
+        "05000361",
+        "05000362"
+      ],
+      "accessions": [
+        "ML26043A255"
+      ],
+      "best_accession": "ML26043A255",
+      "urls": [
+        "https://www.nrc.gov/docs/ML2604/ML26043A255.pdf"
+      ]
+    },
+    {
+      "rank": 5,
+      "score": 12,
+      "severity": "MED",
+      "title": "Analysis of Nebraska Public Power District's Updated Decommissioning Funding Plans for the Cooper Nuclear Station Independent Spent Fuel Storage Installation",
+      "angle": "ANGLE: decommissioning money carve-outs (trust fund rules + exemptions)",
+      "hits": [
+        "spent fuel",
+        "decommissioning"
+      ],
+      "dockets": [
+        "07200066",
+        "05000298"
+      ],
+      "accessions": [
+        "ML26042A346"
+      ],
+      "best_accession": "ML26042A346",
+      "urls": [
+        "https://www.nrc.gov/docs/ML2604/ML26042A346.pdf"
+      ]
+    },
+    {
+      "rank": 6,
+      "score": 12,
+      "severity": "MED",
+      "title": "Analysis of Pacific Gas and Electric Company's Updated Decommissioning Funding Plans for the Diablo Canyon and Humboldt Bay Independent Spent Fuel Storage Installation",
+      "angle": "ANGLE: decommissioning money carve-outs (trust fund rules + exemptions)",
+      "hits": [
+        "spent fuel",
+        "decommissioning"
+      ],
+      "dockets": [
+        "07200026",
+        "05000275",
+        "05000323",
+        "07200027",
+        "05000133"
+      ],
+      "accessions": [
+        "ML26043A250"
+      ],
+      "best_accession": "ML26043A250",
+      "urls": [
+        "https://www.nrc.gov/docs/ML2604/ML26043A250.pdf"
+      ]
+    },
+    {
+      "rank": 7,
+      "score": 12,
+      "severity": "MED",
+      "title": "Analysis of South Carolina Public Service Authority's Updated Decommissioning Funding Plan for the Virgil C. Summer Nuclear Nuclear Station Independent Spent Fuel Storage Installation",
+      "angle": "ANGLE: decommissioning money carve-outs (trust fund rules + exemptions)",
+      "hits": [
+        "spent fuel",
+        "decommissioning"
+      ],
+      "dockets": [
+        "07200002",
+        "05000395"
+      ],
+      "accessions": [
+        "ML26043A254"
+      ],
+      "best_accession": "ML26043A254",
+      "urls": [
+        "https://www.nrc.gov/docs/ML2604/ML26043A254.pdf"
+      ]
+    },
+    {
+      "rank": 8,
+      "score": 12,
+      "severity": "MED",
+      "title": "Analysis of the Sacramento Municipal Utility District's Updated Decommissioning Funding Plan for the Rancho Seco Independent Spent Fuel Storage Installation",
+      "angle": "ANGLE: decommissioning money carve-outs (trust fund rules + exemptions)",
+      "hits": [
+        "spent fuel",
+        "decommissioning"
+      ],
+      "dockets": [
+        "07200011",
+        "05000312"
+      ],
+      "accessions": [
+        "ML26043A257"
+      ],
+      "best_accession": "ML26043A257",
+      "urls": [
+        "https://www.nrc.gov/docs/ML2604/ML26043A257.pdf"
+      ]
+    },
+    {
+      "rank": 9,
+      "score": 12,
+      "severity": "MED",
+      "title": "Analysis of Vistra's Updated Decommissioning Funding Plans for the Beaver Valley, Davis Bessie, Perry, and Comanche Peak Independent Spent Fuel Storage Installation",
+      "angle": "ANGLE: decommissioning money carve-outs (trust fund rules + exemptions)",
+      "hits": [
+        "spent fuel",
+        "decommissioning"
+      ],
+      "dockets": [
+        "07201043",
+        "05000334",
+        "07200014",
+        "05000346",
+        "07200069",
+        "07200074",
+        "05000445",
+        "05000446"
+      ],
+      "accessions": [
+        "ML26043A263"
+      ],
+      "best_accession": "ML26043A263",
+      "urls": [
+        "https://www.nrc.gov/docs/ML2604/ML26043A263.pdf"
+      ]
+    },
+    {
+      "rank": 10,
+      "score": 12,
+      "severity": "MED",
+      "title": "Analysis of Northstar Vermont Yankee's Updated Decommissioning Funding Plans for the Vermont Yankee Nuclear Power Station Independent Spent Fuel Storage Installation",
+      "angle": "ANGLE: decommissioning money carve-outs (trust fund rules + exemptions)",
+      "hits": [
+        "spent fuel",
+        "decommissioning"
+      ],
+      "dockets": [
+        "07200059",
+        "05000271"
+      ],
+      "accessions": [
+        "ML26042A353"
+      ],
+      "best_accession": "ML26042A353",
+      "urls": [
+        "https://www.nrc.gov/docs/ML2604/ML26042A353.pdf"
+      ]
+    }
+  ]
+}

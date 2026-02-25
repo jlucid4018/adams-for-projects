@@ -1,0 +1,21 @@
+[+] MODE=ARCHIVE  requested=2025-02-20  max_pages=10
+[!] No matches for 2025-02-20 within newest window scanned.
+[!] Oldest date seen in scanned window: 2026-02-18
+[!] Archive mode v2 is best-effort until server-side date-range search is implemented.
+[!] Increase --max-pages for near-recent dates, or implement server-side date filtering in v2.1+.
+[+] Retrieved 0 docs for 2025-02-20. Cached to cache/2025-02-20.json
+
+Top 5 topics:
+[+] MODE=ARCHIVE  requested=2025-02-24  max_pages=10
+[!] No matches for 2025-02-24 within newest window scanned.
+[!] Oldest date seen in scanned window: 2026-02-18
+[!] Archive mode v2 is best-effort until server-side date-range search is implemented.
+[!] Increase --max-pages for near-recent dates, or implement server-side date filtering in v2.1+.
+[+] Retrieved 0 docs for 2025-02-24. Cached to cache/2025-02-24.json
+
+Top 5 topics:
+[!] No matches for 2025-02-24 within newest window scanned.
+[!] Oldest date seen in scanned window: 2026-02-18
+[!] Archive mode v2 is best-effort until server-side date-range search is implemented.
+[!] Increase --max-pages for near-recent dates, or implement server-side date filtering in v2.1+.
+[+] MODE=ARCHIVE requested=2025-02-24 used=2025-02-24 docs=0 oldest_seen=2026-02-18
