@@ -1,0 +1,176 @@
+[
+  {
+    "accession": "ML26055A121",
+    "title": "IP 92702 Follow-Up on Traditional Enforcement Actions Including Traditional Enforcement Violations, Deviations, Confirmatory Action Letters, and Orders",
+    "priority": "BACKGROUND",
+    "document_type": "Procedure or reference"
+  },
+  {
+    "accession": "ML26266A121",
+    "title": "LER 2026-001-00 for Perry Nuclear Power Plant, Division 3 Diesel Generator Inoperable due to Failed Cable resulting in Loss of Safety Function",
+    "priority": "HIGH",
+    "document_type": "Licensee event report"
+  },
+  {
+    "accession": "ML26141A141",
+    "title": "LER 2025-001-02 for Beaver Valley Power Station, Unit 1, Condition Prohibited by Technical Specifications and Event or Condition that Could Have Prevented Fulfillment of a Safety Function",
+    "priority": "HIGH",
+    "document_type": "Licensee event report"
+  },
+  {
+    "accession": "ML26261A039",
+    "title": "Task Order 31310026F0052 under Contract No. 31310025A0004",
+    "priority": "BACKGROUND",
+    "document_type": "Procurement record"
+  },
+  {
+    "accession": "ML26154A193",
+    "title": "Non-Proprietary TAR Request for Guidance related to FF Inspection Under 10 CFR Part 21",
+    "priority": "BACKGROUND",
+    "document_type": "Guidance or interpretation"
+  },
+  {
+    "accession": "ML26225A308",
+    "title": "Confirmatory Order Related To NRC Reactive Inspection Report 030-28641/2024-001 And Investigation Report OI-RIV-2024-0013-Department Of The Air Force",
+    "priority": "HIGH",
+    "document_type": "Enforcement action or finding"
+  },
+  {
+    "accession": "ML26120A530",
+    "title": "Memorandum and Order (Scheduling Closed Prehearing Conference)",
+    "priority": "BACKGROUND",
+    "document_type": "Scheduling or procedure"
+  },
+  {
+    "accession": "ML26274A398",
+    "title": "St. Lucie, Unit 1 - Request for Typographical Correction to Technical Specification 3.7.15, Spent Fuel Pool Storage",
+    "priority": "BACKGROUND",
+    "document_type": "Editorial correction"
+  },
+  {
+    "accession": "ML26272A237",
+    "title": "CY 2025 Summary of Decommissioning Trust Fund Status",
+    "priority": "MEDIUM",
+    "document_type": "Periodic funding report"
+  },
+  {
+    "accession": "ML24299A156",
+    "title": "Review of the Draft Environmental Assessment and Finding of No Significant Impact Related to Crystal River Unit 3 Independent Spent Fuel Storage Installation Updated Decommissioning Funding Plans",
+    "priority": "MEDIUM",
+    "document_type": "Draft environmental review"
+  },
+  {
+    "accession": "ML26195A351",
+    "title": "Fee Exemption Request for NEI 26-03, Revision 0, \"An Approach for the Assessment of Low Frequency Seismic Events as Part of a Risk-Informed Performance-Based Licensing Pathway\"",
+    "priority": "MEDIUM",
+    "document_type": "Application or regulatory request"
+  },
+  {
+    "accession": "ML26120A058",
+    "title": "Draft Environmental Assessment and Draft Finding of No Significant Impact for the Christopher M. Crane Clean Energy Center Reauthorization of Power Operations Project",
+    "priority": "MEDIUM",
+    "document_type": "Draft environmental review"
+  },
+  {
+    "accession": "ML26190A329",
+    "title": "Curtiss-Wright July 9 2026 EN 58321 Final Part 21 Notification",
+    "priority": "HIGH",
+    "document_type": "Part 21 report or update"
+  },
+  {
+    "accession": "ML26173A076",
+    "title": "EN 58321 - Part 21 Report - Curtis-Wright GE Relay Failure - June 16",
+    "priority": "HIGH",
+    "document_type": "Part 21 report or update"
+  },
+  {
+    "accession": "ML26246A077",
+    "title": "U.S. Customs and Border Protection Response to NRC Inspection Report, L08-17447-01.2026001.NOV",
+    "priority": "MEDIUM",
+    "document_type": "Inspection or audit"
+  },
+  {
+    "accession": "ML26070A376",
+    "title": "New Order Environmental Services, LLC., Request for Additional Information, Mail Control No. 655165",
+    "priority": "MEDIUM",
+    "document_type": "Review correspondence"
+  },
+  {
+    "accession": "ML26020A027",
+    "title": "New Order Environmental Services, LLC; NRC Form 532 Acknowledgement of Receipt, Mail Control No. 655165",
+    "priority": "BACKGROUND",
+    "document_type": "Administrative filing"
+  },
+  {
+    "accession": "ML26198A308",
+    "title": "Initial Scheduling Order - Miami Waterkeeper v NRC DC Cir 26-1105",
+    "priority": "BACKGROUND",
+    "document_type": "Scheduling or procedure"
+  },
+  {
+    "accession": "ML26173A148",
+    "title": "Waterford Steam Electric Station, Unit 3 - Request for Enforcement Discretion from Technical Specification Limiting Condition for Operation 3.7.4 \"Ultimate Heat Sink\"",
+    "priority": "MEDIUM",
+    "document_type": "Enforcement-related request"
+  },
+  {
+    "accession": "ML26056A135",
+    "title": "Paragon Energy Solutions, LLC, Defect with Schneider Electric Actuator Part Number MA-418-0-0-4",
+    "priority": "HIGH",
+    "document_type": "Reported equipment condition"
+  },
+  {
+    "accession": "ML26082A204",
+    "title": "Cooper Nuclear Station - Application to Adopt 10 CFR 50.69, \"Risk-Informed Categorization and Treatment of Structures, Systems and Components for Nuclear Power Reactors\"",
+    "priority": "MEDIUM",
+    "document_type": "Application or regulatory request"
+  },
+  {
+    "accession": "ML26215A326",
+    "title": "Davis-Besse, Unit 1 - Application to Adopt 10 CFR 50.59, \"Risk-Informed Categorization and Treatment of Structures, Systems, and Components for Nuclear Power Reactors\"",
+    "priority": "MEDIUM",
+    "document_type": "Application or regulatory request"
+  },
+  {
+    "accession": "ML26152A042",
+    "title": "Diablo Canyon Request to Revise 10 CFR 50.69 Process to Incorporate EPRI Report, \"Enhanced Risk-Informed Categorization Methodology for Pressure Boundary Components\" (EPID: L-2026-LLA-0086)",
+    "priority": "MEDIUM",
+    "document_type": "Application or regulatory request"
+  },
+  {
+    "accession": "ML25345A178",
+    "title": "Seabrook Station, Unit 1 - Amendment No.179 Regarding Adoption of 10 CFR 50.69, \"Risk-Informed Categorization and Treatment of Structures, Systems and Components...\" (EPID L-2025-LLA-0058)",
+    "priority": "HIGH",
+    "document_type": "Licensing or regulatory decision"
+  },
+  {
+    "accession": "ML26014A247",
+    "title": "Order Imposing Additional Requirements for Safeguards Information - Blue Energy",
+    "priority": "HIGH",
+    "document_type": "Licensing or regulatory decision"
+  },
+  {
+    "accession": "ML26015A065",
+    "title": "Enclosure 1 - Order Imposing Additional Requirements for Safeguards Information - Blue Energy",
+    "priority": "HIGH",
+    "document_type": "Licensing or regulatory decision"
+  },
+  {
+    "accession": "ML26096A125",
+    "title": "Fort Calhoun, Unit 1, and Independent Spent Fuel Storage Installation - 10 CFR 50.59 Report, Quality Assurance (QA) Program Changes, Technical Specification Basis Changes, 10 CFR 71.106 Quality Assurance Program Approval, Aging Management Review...",
+    "priority": "MEDIUM",
+    "document_type": "Regulatory follow-up"
+  },
+  {
+    "accession": "ML26106A246",
+    "title": "TERRA Site Development-Order Revoking License-Listing of Materials and Storage Update",
+    "priority": "MEDIUM",
+    "document_type": "Enforcement follow-up"
+  },
+  {
+    "accession": "ML010360226",
+    "title": "Revision 0 to Calculation 05996.01-UR-03, \"Postulated Release of Removable Contamination from Canister Outer Surfaces - Dose Consequences.\"",
+    "priority": "MEDIUM",
+    "document_type": "Regulatory or technical record"
+  }
+]
