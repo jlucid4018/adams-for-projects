@@ -1,105 +1,37 @@
 # ADAMS for Projects
 
-**A tiny CLI radar for the NRC ADAMS Public Search (APS) API.**  
-It answers one question fast:
+A small CLI for finding public NRC ADAMS records worth reading. It retrieves posting-day metadata from the APS API, falls back to a recent posting day when necessary, groups related records, and produces a short reading list with source links.
 
-> **“What’s hot in ADAMS today?”**  
-…and if today has zero postings (weekends/holidays), it automatically falls back to the last posting day.
+## What changed in 0.2.0
 
-This project exists because the new ADAMS web UI makes “daily situational awareness” harder than it needs to be.  
-If there’s an API, we can rebuild the missing affordance.
-
----
-
-## Why this exists (the short story)
-
-Meet **Little Nuclear Johnny**: a nuclear engineering student who can’t unsee the PR spellcraft.  
-He wants to know what’s actually happening *today*—not what the UI feels like showing him.  
-So he builds a radar:
-
-- pulls newest postings
-- filters by “date added”
-- clusters duplicates (EPIDs / NEI IDs / projects)
-- ranks likely “project-grade” documents
-- prints clickable URLs
-
-It’s a tool. It’s also a character study.
-
----
-
-## Features (v1)
-
-- ✅ Pulls ADAMS postings by date (with weekend fallback)
-- ✅ Clusters near-duplicates into **one topic** (EPID / NEI 24-05 style families)
-- ✅ Scores + filters noise (configurable via code in v1)
-- ✅ Severity labels + readable output
-- ✅ Prints a URL for each pick
-- ✅ Caches daily results to `cache/YYYY-MM-DD.json`
-
----
+Version 2.0.0 of the review classifier replaces additive keyword scores for selection. Output uses **High**, **Medium**, and **Background** reading priority, document types, factual title-based reasons, and separate thematic tags. Legacy scores, severity labels, keyword hits, and editorial angles remain in JSON for comparison. They do not drive current rankings. See [review methodology](docs/review-priority.md) for the rules and limitations.
 
 ## Install
 
-### Requirements
-- Python 3.10+ recommended (works on 3.12 too)
-- An NRC APS subscription key (free from NRC’s developer portal)
+Python 3.10 or newer and an NRC APS subscription key are required.
 
-### Setup
-```bash
+```sh
 python -m venv .venv
 source .venv/bin/activate
 pip install -e .
-
-Set your key in an environment variable:
-
 export APS_KEY="YOUR_KEY_HERE"
-Usage
+```
 
-Note: global flags come before the subcommand.
+Global flags come before the subcommand:
 
-Probe today (with fallback)
+```sh
 adams --today probe
-Show top topics
 adams --today --top 5 run
-Query a specific date
-adams --date 2026-02-20 --top 10 run
-Disable color
-adams --today --color never run
-Output
+adams --date 2026-02-25 --top 10 run
+adams --today --color never --export-json run
+```
 
-Each topic prints:
+Console output includes review priority, document type, the reason for selection, the representative accession, related accessions, docket hints, and source URL. Daily metadata is cached to `cache/YYYY-MM-DD.json`; `--export-json` writes a dated report and `reports/latest.run.json`. Cache persistence and historical archival retention depend on the environment running the collector.
 
-score + severity
+## Verify
 
-best accession
+```sh
+PYTHONPATH=src python -m unittest discover -s tests -v
+```
 
-docket / project hints
-
-hits (why it scored)
-
-angle (project framing)
-
-cluster file list
-
-URL (bottom)
-
-Responsible use
-
-This tool is designed to be a polite client:
-
-minimal pages fetched
-
-caches results
-
-built for “situational awareness,” not scraping the entire archive
-
-If you’re using it heavily, consider adding backoff/ratelimit logic (easy v2).
-
-License
-
-MIT (see LICENSE).
-Yes, NRC staff/contractors can use it too. Seriously. See NOTICE.
-
-Disclaimer
-
-This is an independent project and is not affiliated with the U.S. NRC.
+This is an independent project, not affiliated with the U.S. NRC. Title-based reading priority is not an official NRC finding or a safety-severity assessment. Consult the underlying records. License: MIT; see LICENSE and NOTICE.

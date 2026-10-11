@@ -8,12 +8,13 @@ import sys
 from typing import Any, Dict, List, Tuple
 
 from .aps_client import APSClient, APSClientError
-from .scoring import score_title, is_noise, infer_angle, doc_bonus
+from .scoring import score_title, infer_angle, doc_bonus
+from .review import classify_title
 from .cache import ensure_cache_dir, save_json
 from .exporter import write_run_artifact
 
 TOOL_NAME = "adams-for-projects"
-TOOL_VERSION = "0.1.0"  # bump later if you want
+TOOL_VERSION = "0.2.0"
 
 ANSI = {
     "reset": "\x1b[0m",
@@ -152,9 +153,10 @@ def _cluster_entries(docs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
     for d in docs:
         title = _doc_title(d)
-        if not title or is_noise(title):
+        if not title:
             continue
 
+        review = classify_title(title)
         score, hits = score_title(title)
         score += doc_bonus(title)
 
@@ -165,6 +167,7 @@ def _cluster_entries(docs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         entry = clusters.get(key)
         if entry is None:
             clusters[key] = {
+                "review": review,
                 "best_score": score,
                 "best_hits": hits,
                 "best_doc": d,
@@ -172,29 +175,34 @@ def _cluster_entries(docs: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             }
         else:
             entry["accessions"].append(acc)
-            if score > entry["best_score"]:
+            if (-review["rank_score"], title.casefold(), acc) < _entry_sort_key(entry):
+                entry["review"] = review
                 entry["best_score"] = score
                 entry["best_hits"] = hits
                 entry["best_doc"] = d
 
     for entry in clusters.values():
+        entry["accessions"] = sorted(set(entry["accessions"]))
         entry["angle"] = infer_angle(_doc_title(entry["best_doc"]), entry["best_hits"])
 
-    return sorted(clusters.values(), key=lambda e: e["best_score"], reverse=True)
+    return sorted(clusters.values(), key=_entry_sort_key)
+
+def _entry_sort_key(entry: Dict[str, Any]) -> Tuple[int, str, str]:
+    return (-entry["review"]["rank_score"], _doc_title(entry["best_doc"]).casefold(), _doc_accession(entry["best_doc"]))
+
 
 def _top_topics_no_repeats(docs: List[Dict[str, Any]], top_n: int) -> List[Dict[str, Any]]:
-    ranked = _cluster_entries(docs)
-    used: set[str] = set()
-    out: List[Dict[str, Any]] = []
-    for c in ranked:
-        fp = _topic_fingerprint(c["best_doc"])
-        if fp in used:
-            continue
-        used.add(fp)
-        out.append(c)
-        if len(out) >= top_n:
-            break
-    return out
+    # Finish grouping before truncating so later members of selected topics are
+    # retained. The highest-priority representative wins; legacy scores do not.
+    by_fingerprint: Dict[str, Dict[str, Any]] = {}
+    for candidate in _cluster_entries(docs):
+        fp = _topic_fingerprint(candidate["best_doc"])
+        existing = by_fingerprint.get(fp)
+        if existing is None:
+            by_fingerprint[fp] = candidate
+        else:
+            existing["accessions"] = sorted(set(existing["accessions"] + candidate["accessions"]))
+    return sorted(by_fingerprint.values(), key=_entry_sort_key)[:max(0, top_n)]
 
 def cmd_run(args) -> int:
     requested_day = _parse_requested_date(args)
@@ -230,14 +238,15 @@ def cmd_run(args) -> int:
         url = _doc_url(best)
 
         sev_label, sev_color = _sev_for_score(score)
-        sev_txt = _paint(sev_label, sev_color, color_on)
-        score_txt = _paint(f"[{score:>2}]", sev_color, color_on)
+        review = t["review"]
+        review_color = {"HIGH": "yellow", "MEDIUM": "green", "BACKGROUND": "gray"}[review["priority"]]
+        priority_txt = _paint(f"REVIEW:{review['priority']}", review_color, color_on)
 
-        print(f"\n#{i}  {score_txt}  {sev_txt}  {acc}  (cluster {len(files)} files){'  docket ' + ','.join(dockets) if dockets else ''}")
+        print(f"\n#{i}  {priority_txt}  {acc}  (cluster {len(files)} files){'  docket ' + ','.join(dockets) if dockets else ''}")
         print(f"     {title}")
-        if hits:
-            print(f"     hits: {hits}")
-        print(f"     {t['angle']}")
+        print(f"     {review['document_type']}")
+        for reason in review["reasons"]:
+            print(f"     {reason}")
         show = ", ".join(files[:6])
         if len(files) > 6:
             show += f", … (+{len(files)-6} more)"
@@ -249,6 +258,7 @@ def cmd_run(args) -> int:
         sev_name = sev_label.split(":", 1)[1] if ":" in sev_label else sev_label
         export_topics.append({
             "rank": i,
+            "review": review,
             "score": score,
             "severity": sev_name,
             "title": title,
@@ -316,3 +326,4 @@ def main(argv=None) -> None:
     if not args.key:
         raise SystemExit("No APS key provided. Set APS_KEY env var or pass --key.")
     raise SystemExit(args.func(args))
+
